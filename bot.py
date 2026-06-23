@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import random
 from telegram.ext import MessageHandler, filters
-
+import os
 
 LESSONS = [
     {
@@ -33,7 +33,7 @@ Ich lerne Deutsch.""",
 
 user_data = {}
 
-TOKEN = "8710366697:AAH5h9ZIo2yWdoCyrdSO2JC24oxoUfJJhbI"
+TOKEN = os.getenv("BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
