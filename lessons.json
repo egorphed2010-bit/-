@@ -7,14 +7,14 @@
     "questions": [
       {
         "question": "Как зовут героиню текста?",
-        "answer": [
+        "answers": [
             "Анна",
             "Anna"
         ]
       },
       {
         "question": "Откуда героиня текста?",
-        "answer": [
+        "answers": [
             "из Берлина",
             "Берлин",
             "Berlin",
@@ -32,14 +32,14 @@
     "questions": [
       {
         "question": "Какое имя у героя текста?",
-        "answer": [
+        "answers": [
             "Макс",
             "Max"
         ]  
       },
       {
         "question": "Откуда герой текста?",
-        "answer": [
+        "answers": [
             "из Гамбурга",
             "Гамбург",
             "Hamburg",

@@ -93,7 +93,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
         state["lesson"]["questions"][question_index]["answers"]
     )
     
-    if answer in [a.lower() for a in correct_answers]:
+    if answer.lower() in [a.lower().strip() for a in correct_answers]:
 
         if question_index == 0:
 
