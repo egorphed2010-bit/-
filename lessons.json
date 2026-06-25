@@ -1,0 +1,51 @@
+[
+  {
+    "text": "Hallo!\n\nMein Name ist Anna.\nIch komme aus Berlin.\nIch lerne Deutsch.",
+
+    "translation": "Привет!\n\nМеня зовут Анна.\nЯ из Берлина.\nЯ учу немецкий.",
+
+    "questions": [
+      {
+        "question": "Как зовут героиню текста?",
+        "answer": [
+            "Анна",
+            "Anna"
+        ]
+      },
+      {
+        "question": "Откуда героиня текста?",
+        "answer": [
+            "из Берлина",
+            "Берлин",
+            "Berlin",
+            "aus Berlin"
+        ]
+      }
+    ]
+  },
+
+  {
+    "text": "Hallo!\n\nMein Name ist Max.\nIch komme aus Hamburg.\nIch arbeite in einem Büro.",
+
+    "translation": "Привет!\n\nМеня зовут Макс.\nЯ из Гамбурга.\nЯ работаю в офисе.",
+
+    "questions": [
+      {
+        "question": "Какое имя у героя текста?",
+        "answer": [
+            "Макс",
+            "Max"
+        ]  
+      },
+      {
+        "question": "Откуда герой текста?",
+        "answer": [
+            "из Гамбурга",
+            "Гамбург",
+            "Hamburg",
+            "aus Hamburg"
+        ]
+      }
+    ]
+  }
+]

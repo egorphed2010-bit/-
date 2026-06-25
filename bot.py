@@ -3,33 +3,10 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import random
 from telegram.ext import MessageHandler, filters
 import os
+import json
 
-LESSONS = [
-    {
-        "text": """Hallo!
-
-Mein Name ist Anna.
-Ich komme aus Berlin.
-Ich lerne Deutsch.""",
-
-        "translation": """Привет!
-
-Меня зовут Анна.
-Я из Берлина.
-Я учу немецкий.""",
-
-        "questions": [
-            {
-                "question": "Wie heißt die Person aus dem Text?",
-                "answer": "анна"
-            },
-            {
-                "question": "Woher kommt sie?",
-                "answer": "из берлина"
-            }
-        ]
-    }
-]
+with open("lessons.json", "r", encoding="utf-8") as f:
+    LESSONS = json.load(f)
 
 user_data = {}
 
@@ -112,11 +89,11 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     question_index = state["question_index"]
 
-    correct_answer = (
-        state["lesson"]["questions"][question_index]["answer"]
+    correct_answers = (
+        state["lesson"]["questions"][question_index]["answers"]
     )
-
-    if answer == correct_answer:
+    
+    if answer in [a.lower() for a in correct_answers]:
 
         if question_index == 0:
 
