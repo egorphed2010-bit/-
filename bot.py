@@ -137,10 +137,10 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
 
-    app.add_handler(CommandHandler("command1", command1))
-    app.add_handler(CommandHandler("command2", command2))
-    app.add_handler(CommandHandler("command3", command3))
-    app.add_handler(CommandHandler("command4", command4))
+    app.add_handler(CommandHandler("new_lesson", command1))
+    app.add_handler(CommandHandler("info", command2))
+    app.add_handler(CommandHandler("help", command3))
+    app.add_handler(CommandHandler("translate", command4))
     app.add_handler(
     MessageHandler(filters.TEXT & ~filters.COMMAND, check_answer)
 )
