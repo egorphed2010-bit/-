@@ -51,14 +51,16 @@ async def command1(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def command2(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "ℹ️ Этот бот помогает изучать немецкий язык."
+        "ℹ️ Это бот, который помогает изучать немецкий язык с помощью текстов\n (This is a bot that helps you learn German using texts.)"
     )
 
 async def command3(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "/command1 — начать новый урок\n"
-        "/command2 — информация о боте\n"
-        "/command3 — помощь"
+        "/new_lesson — начать новый урок\n"
+        "/info — информация о боте\n"
+        "/help — помощь\n"
+        "/translate – перевод(доступно после 2х ошибок)\n"
+        "/stop – завершить урок"
     )
 
 async def command4(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -131,6 +133,20 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "Теперь доступна команда /command4 - перевод текста"
             )
 
+async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+
+    if user_id in user_data:
+        del user_data[user_id]
+        await update.message.reply_text(
+            "🛑 Урок остановлен.\n"
+            "Чтобы начать новый урок, используйте /newlesson."
+        )
+    else:
+        await update.message.reply_text(
+            "Сейчас у вас нет активного урока."
+        )
+
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
 
@@ -141,6 +157,7 @@ def main():
     app.add_handler(CommandHandler("info", command2))
     app.add_handler(CommandHandler("help", command3))
     app.add_handler(CommandHandler("translate", command4))
+    app.add_handler(CommandHandler("stop", stop))
     app.add_handler(
     MessageHandler(filters.TEXT & ~filters.COMMAND, check_answer)
 )
