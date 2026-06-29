@@ -23,9 +23,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Команды:\n"
-        "/command1 - новый урок\n"
-        "/command2 - информация о боте\n"
-        "/command3 - помощь"
+        "/new_lesson — начать новый урок\n"
+        "/info — информация о боте\n"
+        "/help — помощь\n"
+        "/translate – перевод(доступно после 2х ошибок)\n"
+        "/stop – завершить урок"
     )
 
 last_text = None
