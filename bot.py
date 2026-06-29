@@ -4,8 +4,11 @@ import random
 from telegram.ext import MessageHandler, filters
 import os
 import json
+from pathlib import Path
 
-with open("lessons.json", "r", encoding="utf-8") as f:
+BASE_DIR = Path(__file__).parent
+
+with open(BASE_DIR / "lessons.json", "r", encoding="utf-8") as f:
     LESSONS = json.load(f)
 
 user_data = {}
