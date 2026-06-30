@@ -135,7 +135,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if state["mistakes"] >= 2:
             await update.message.reply_text(
-                "Теперь доступна команда /command4 - перевод текста"
+                "Теперь доступна команда /translate - перевод текста"
             )
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
