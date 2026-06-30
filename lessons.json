@@ -18,7 +18,33 @@
             "из Берлина",
             "Берлин",
             "Berlin",
-            "aus Berlin"
+            "aus Berlin",
+            "from Berlin"
+        ]
+      },
+      {
+        "question": "Чем занимается героиня текста?",
+        "answers": [
+          "Учит немецкий",
+          "Она учит немецкий",
+          "lernt Deutsch",
+          "Sie lernt Deutsch"
+        ]
+      },
+      {
+        "question": "Какой язык учит героиня текста?",
+        "answers": [
+          "Немецкий",
+          "Немецкий язык",
+          "Deutsch",
+          "Deutsche Sprache"
+        ]
+      },
+      {
+        "question": "Какой город упоминается в тексте?",
+        "answers": [
+          "Берлин",
+          "Berlin"
         ]
       }
     ]
@@ -43,9 +69,78 @@
             "из Гамбурга",
             "Гамбург",
             "Hamburg",
-            "aus Hamburg"
+            "aus Hamburg",
+            "from Hamburg"
+        ]
+      },
+      {
+        "question": "Чем занимается герой текста?",
+        "answers": [
+          "Работает в офисе",
+          "Arbeitet im Büro"
+        ]
+      },
+      {
+        "question": "Где работает герой офиса?",
+        "answers": [
+          "В офисе",
+          "im Büro",
+          "In the office"
+        ]
+      },
+      {
+        "question": "Какой город упоминается в тексте?",
+        "answers": [
+          "Гамбург",
+          "Hamburg"
         ]
       }
+    ]
+  },
+
+  {
+    "text": "Hallo! mein Name ist Alex,\n ich komme aus der Schweiz,\n nämlich aus Zürich. Ich arbeite als Arzt,\n ich trinke auch gerne Tee und lese Bücher.",
+
+    "translation": "Привет! меня зовут Алекс,\n я из Швейцарии,\n а именно из Цюриха. Я работаю врачом,\n мне также нравится пить чай и читать книги.",
+
+    "questions": [
+      {
+        "question": "Как зовут героя текста?",
+        "answers": [
+          "Алекс",
+          "Alex"
+        ]
+      },
+      {
+        "question": "Откуда герой текста?",
+        "answers": [
+          "Из Швейцарии",
+          "Aus Schweiz",
+          "Из Цюриха",
+          "Aus Zürich"
+        ]
+      },
+      {
+        "question": "Кем работает герой текста?",
+        "answers": [
+          "Врачом",
+          "Arzt",
+          "Он работает врачом",
+          "Er arbeitet als Arzt"
+        ]
+      },
+      {
+        "question": "Чем нравится заниматься герою текста",
+        "answers": [
+          "Пить чай и читать книги",
+          "Пить чай",
+          "Читать книги",
+          "Tee trinken und Bücher lesen",
+          "Tee trinken",
+          "Bücher lesen"
+        ]
+      }
+
     ]
   }
 ]

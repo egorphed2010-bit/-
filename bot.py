@@ -37,8 +37,11 @@ async def command1(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     user_id = update.effective_user.id
 
+    selected_questions = random.sample(lesson["questions"], 2)
+
     user_data[user_id] = {
         "lesson": lesson,
+        "questions": selected_questions,
         "question_index": 0,
         "mistakes": 0
     }
@@ -48,7 +51,7 @@ async def command1(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(lesson["text"])
 
     await update.message.reply_text(
-        lesson["questions"][0]["question"]
+        selected_questions[0]["question"]
     )
 
 async def command2(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -97,7 +100,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     question_index = state["question_index"]
 
     correct_answers = (
-        state["lesson"]["questions"][question_index]["answers"]
+    state["questions"][question_index]["answers"]
     )
     
     if answer.lower() in [a.lower().strip() for a in correct_answers]:
@@ -111,7 +114,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
 
             await update.message.reply_text(
-                state["lesson"]["questions"][1]["question"]
+                state["questions"][1]["question"]
             )
 
         else:
