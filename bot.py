@@ -15,13 +15,18 @@ stats_file = BASE_DIR / "stats.json"
 
 if stats_file.exists():
     with open(stats_file, "r", encoding="utf-8") as f:
-        user_stats = json.load(f)
+        data = json.load(f)
+
+    # Преобразуем строковые ключи обратно в числа
+    user_stats = {int(k): v for k, v in data.items()}
 else:
     user_stats = {}
 
 def save_stats():
+    data = {str(k): v for k, v in user_stats.items()}
+
     with open(stats_file, "w", encoding="utf-8") as f:
-        json.dump(user_stats, f, ensure_ascii=False, indent=4)
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
 user_data = {}
 user_stats = {}
@@ -48,7 +53,7 @@ last_text = None
 async def command1(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lesson = random.choice(LESSONS)
 
-    user_id = str(update.effective_user.id)
+    user_id = update.effective_user.id          # Для user_data
 
     if user_id not in user_stats:
         user_stats[user_id] = {
@@ -126,7 +131,6 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if answer.lower() in [a.lower().strip() for a in correct_answers]:
     
         user_stats[user_id]["correct_answers"] += 1
-        save_stats()
         
         if question_index == 0:
 
@@ -142,10 +146,8 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         else:
             user_stats[user_id]["wrong_answers"] += 1
-            save_stats()
             
             user_stats[user_id]["lessons"] += 1
-            save_stats()
 
             await update.message.reply_text(
                 "🎉 Ответ верный, поздравляю! Урок завершён."
