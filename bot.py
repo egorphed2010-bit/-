@@ -11,13 +11,26 @@ BASE_DIR = Path(__file__).parent
 with open(BASE_DIR / "lessons.json", "r", encoding="utf-8") as f:
     LESSONS = json.load(f)
 
+stats_file = BASE_DIR / "stats.json"
+
+if stats_file.exists():
+    with open(stats_file, "r", encoding="utf-8") as f:
+        user_stats = json.load(f)
+else:
+    user_stats = {}
+
+def save_stats():
+    with open(stats_file, "w", encoding="utf-8") as f:
+        json.dump(user_stats, f, ensure_ascii=False, indent=4)
+
 user_data = {}
+user_stats = {}
 
 TOKEN = os.getenv("BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "Привет, я бот для изучения немецкого языка по текстам :)"
+        "Привет, я бот для изучения немецкого языка по текстам :)\n Hi, I'm a bot for learning German by text :) "
     )
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -35,7 +48,14 @@ last_text = None
 async def command1(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lesson = random.choice(LESSONS)
 
-    user_id = update.effective_user.id
+    user_id = str(update.effective_user.id)
+
+    if user_id not in user_stats:
+        user_stats[user_id] = {
+        "lessons": 0,
+        "correct_answers": 0,
+        "wrong_answers": 0
+    }
 
     selected_questions = random.sample(lesson["questions"], 2)
 
@@ -104,7 +124,10 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     
     if answer.lower() in [a.lower().strip() for a in correct_answers]:
-
+    
+        user_stats[user_id]["correct_answers"] += 1
+        save_stats()
+        
         if question_index == 0:
 
             state["question_index"] = 1
@@ -118,6 +141,11 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
 
         else:
+            user_stats[user_id]["wrong_answers"] += 1
+            save_stats()
+            
+            user_stats[user_id]["lessons"] += 1
+            save_stats()
 
             await update.message.reply_text(
                 "🎉 Ответ верный, поздравляю! Урок завершён."
@@ -152,6 +180,37 @@ async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Сейчас у вас нет активного урока."
         )
 
+async def stat(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+
+    if user_id not in user_stats:
+        await update.message.reply_text(
+            "У вас пока нет статистики."
+        )
+        return
+
+    stats = user_stats[user_id]
+
+    total_answers = (
+        stats["correct_answers"] +
+        stats["wrong_answers"]
+    )
+
+    if total_answers == 0:
+        accuracy = 0
+    else:
+        accuracy = round(
+            stats["correct_answers"] / total_answers * 100
+        )
+
+    await update.message.reply_text(
+        f"📊 Ваша статистика\n\n"
+        f"📚 Пройдено уроков: {stats['lessons']}\n"
+        f"✅ Правильных ответов: {stats['correct_answers']}\n"
+        f"❌ Неправильных ответов: {stats['wrong_answers']}\n"
+        f"📈 Точность: {accuracy}%"
+    )
+
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
 
@@ -163,6 +222,7 @@ def main():
     app.add_handler(CommandHandler("help", command3))
     app.add_handler(CommandHandler("translate", command4))
     app.add_handler(CommandHandler("stop", stop))
+    app.add_handler(CommandHandler("stat", stat))
     app.add_handler(
     MessageHandler(filters.TEXT & ~filters.COMMAND, check_answer)
 )
